@@ -76,12 +76,6 @@ flowchart LR
 
 As fases abaixo organizam a evolucao do projeto e servem como indice para as secoes seguintes:
 
-- [Fase 1. Fundacao](#fase-1-fundacao)
-- [Fase 2. Data Lake](#fase-2-data-lake)
-- [Fase 3. Analitica](#fase-3-analitica)
-- [Fase 4. ML](#fase-4-ml)
-- [Trilha de Machine Learning](#trilha-de-machine-learning)
-
 | Fase | Objetivo | Principais frentes | Entregaveis esperados |
 | --- | --- | --- | --- |
 | 1. Fundacao | estabelecer a base operacional do projeto e a primeira coleta confiavel | configurar projeto Python;<br>criar cliente da OpenDota;<br>definir schema SQLite;<br>criar rotina de coleta incremental | estrutura inicial do repositorio;<br>configuracao de ambiente e credenciais;<br>script funcional de ingestao incremental;<br>banco SQLite com tabelas operacionais |
