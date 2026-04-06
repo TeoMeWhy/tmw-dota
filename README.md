@@ -93,11 +93,11 @@ As fases abaixo organizam a evolucao do projeto e servem como indice para as sec
 
 O projeto pode evoluir em camadas de maturidade.
 
-| Fase | Frente de ML | Objetivo |
-| --- | --- | --- |
-| Fase 1 | Predicao de resultado de partida | prever vitoria ou derrota antes do inicio da partida ou a partir do draft |
-| Fase 2 | Predicao de desempenho em campeonatos | estimar classificacao, avancos em brackets ou expectativa de vitorias |
-| Fase 3 | Analise de rotacao de jogadores | entender impacto de entrada e saida de jogadores em uma equipe |
+| Fase | Objetivo |
+| --- | --- |
+| Predicao de resultado de partida | prever vitoria ou derrota antes do inicio da partida ou a partir do draft |
+| Predicao de desempenho em campeonatos | estimar classificacao, avancos em brackets ou expectativa de vitorias |
+| Análise de rotacao de jogadores | entender impacto de entrada e saida de jogadores em uma equipe |
 
 
 ## Limitacoes e Cuidados
