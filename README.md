@@ -80,11 +80,6 @@ As fases abaixo organizam a evolucao do projeto e servem como indice para as sec
 - [Fase 2. Data Lake](#fase-2-data-lake)
 - [Fase 3. Analitica](#fase-3-analitica)
 - [Fase 4. ML](#fase-4-ml)
-- [Fluxo de Dados por Fase](#fluxo-de-dados-por-fase)
-- [Stack Tecnologica por Fase](#stack-tecnologica-por-fase)
-- [Estrategia de Coleta por Fase](#estrategia-de-coleta-por-fase)
-- [Pipeline por Fase](#pipeline-por-fase)
-- [Analises por Fase](#analises-por-fase)
 - [Trilha de Machine Learning](#trilha-de-machine-learning)
 
 | Fase | Objetivo | Principais frentes | Entregaveis esperados |
