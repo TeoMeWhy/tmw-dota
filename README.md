@@ -76,12 +76,12 @@ flowchart LR
 
 As fases abaixo organizam a evolucao do projeto e servem como indice para as secoes seguintes:
 
-| Fase | Objetivo | Principais frentes | Entregaveis esperados |
-| --- | --- | --- | --- |
-| 1. Fundacao | estabelecer a base operacional do projeto e a primeira coleta confiavel | configurar projeto Python;<br>criar cliente da OpenDota;<br>definir schema SQLite;<br>criar rotina de coleta incremental | estrutura inicial do repositorio;<br>configuracao de ambiente e credenciais;<br>script funcional de ingestao incremental;<br>banco SQLite com tabelas operacionais |
-| 2. Data Lake | separar armazenamento operacional de armazenamento detalhado e permitir reprocessamento | persistir payload bruto no S3;<br>padronizar paths e particionamento;<br>adicionar transformacao para dados bronze | bucket e convencoes de path definidas;<br>gravacao de JSON bruto por partida;<br>primeira camada bronze pronta para consumo posterior |
-| 3. Analitica | transformar dados coletados em ativos analiticos reutilizaveis | produzir datasets para exploracao;<br>integrar leitura pela Nekt;<br>criar indicadores de performance | tabelas derivadas por partida, jogador, time e campeonato;<br>consumo validado pela Nekt;<br>indicadores iniciais para exploracao e monitoramento |
-| 4. ML | evoluir da analise descritiva para predicao e apoio a decisao | construir pipeline de features;<br>treinar baseline de predicao de partidas;<br>evoluir para modelos de campeonato e rotacao | dataset de treino versionado;<br>baseline reprodutivel de predicao;<br>trilha aberta para modelos mais especializados |
+| Fase | Objetivo | Principais frentes |
+| --- | --- | --- |
+| 1. Fundacao | estabelecer a base operacional do projeto e a primeira coleta confiavel | configurar projeto Python;<br>criar cliente da OpenDota;<br>definir schema SQLite;<br>criar rotina de coleta incremental |
+| 2. Data Lake | separar armazenamento operacional de armazenamento detalhado e permitir reprocessamento | persistir payload bruto no S3;<br>padronizar paths e particionamento;<br>adicionar transformacao para dados bronze |
+| 3. Analitica | transformar dados coletados em ativos analiticos reutilizaveis | produzir datasets para exploracao;<br>integrar leitura pela Nekt;<br>criar indicadores de performance |
+| 4. ML | evoluir da analise descritiva para predicao e apoio a decisao | construir pipeline de features;<br>treinar baseline de predicao de partidas;<br>evoluir para modelos de campeonato e rotacao |
 
 ## Trilha de Machine Learning
 
