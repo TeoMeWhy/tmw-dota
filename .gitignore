@@ -1,0 +1,10 @@
+*.env
+
+*.csv
+*parquet
+*.db
+
+__pycache__
+
+.vscode
+mongodb
