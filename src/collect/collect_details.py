@@ -2,29 +2,11 @@
 import requests
 import time
 
-from pymongo import MongoClient
-
-import sqlalchemy
 from sqlalchemy.orm import Session
-
 from tqdm import tqdm
 
-from db_models import Match
+from db_models import db_models
 
-# %%
-
-db_path = "./../../data/database.db"
-sqlite_engine = sqlalchemy.create_engine(f"sqlite:///{db_path}")
-
-# abertura de conexão com o banco de dados do MongoDB
-client = MongoClient("mongodb://root:example@localhost:27017/")
-
-# Obtendo o database do dota
-db =  client.get_database("dota2")
-
-# Obtendo a coleção do database do dota
-collection = db.get_collection("match_details")
-collection.create_index("match_id", unique=True)
 
 # %%
 
@@ -38,8 +20,8 @@ class CollectorMatchDetails:
 
     def get_matches_to_collect(self):
         with Session(self.sqlite_engine) as session:
-            matches_to_collect = (session.query(Match)
-                                         .where(Match.flag_details_collected==False)
+            matches_to_collect = (session.query(db_models.Match)
+                                         .where(db_models.Match.flag_details_collected==False)
                                          .all())
         return matches_to_collect
 
@@ -86,8 +68,4 @@ class CollectorMatchDetails:
         for match in tqdm(matches, desc="Collecting match details"):
             if not self.exec_one(match):
                 time.sleep(60)
-
-
-collector = CollectorMatchDetails(sqlite_engine, collection)
-collector.exec_all()
 

@@ -1,19 +1,12 @@
 # %%
+
 import requests
 import datetime
-import pandas as pd
 
-import sqlalchemy
 from sqlalchemy.orm import Session
-import db_models
+from db_models import db_models
 
 import time
-
-db_path = "./../../data/database.db"
-
-con = sqlalchemy.create_engine(f"sqlite:///{db_path}")
-
-# db_models.Base.metadata.create_all(con)
 
 
 # %%
@@ -98,5 +91,3 @@ class CollectorMatch:
         return True
 
 
-collector = CollectorMatch(con)
-result = collector.exec_collect_until(date='2026-04-13', from_history=False)

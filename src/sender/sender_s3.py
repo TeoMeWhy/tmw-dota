@@ -1,36 +1,16 @@
 # %%
-
 import datetime
-
 import os
-import dotenv
-
 import pandas as pd
 
-import boto3
-
-dotenv.load_dotenv()
-
-AWS_KEY = os.getenv("AWS_KEY")
-AWS_SECRET_KEY = os.getenv("AWS_SECRET_KEY")
-
-# %%
-
-
-s3_client = boto3.client(
-    's3',
-    aws_access_key_id=AWS_KEY,
-    aws_secret_access_key=AWS_SECRET_KEY,
-    region_name='us-east-1'
-)
 
 # %%
 
 class S3Sender:
 
     def __init__(self, s3_client):
-        self.s3 = s3_client
-        self.data_path_prefix = "../../data/"
+        self.s3_client = s3_client
+        self.data_path_prefix = "../data/"
 
     def upload_folder(self, foldername, batch_size=1000):
         
@@ -45,11 +25,11 @@ class S3Sender:
             df = pd.concat(dfs)
 
             local_filename = f"batch_{foldername}.parquet"
-            df.to_parquet(local_filename, index=False)
+            df.to_parquet(local_filename)
 
             now = datetime.datetime.now().strftime("%Y%m%d_%H%M%S%f")
             
-            s3_client.upload_file(
+            self.s3_client.upload_file(
                 local_filename,
                 "datalake-raw-tmw",
                 f"dota2/{foldername}/{now}.parquet",
@@ -65,11 +45,6 @@ class S3Sender:
     def upload_all(self, batch_size=1000):
         self.upload_folder("match_details", batch_size=batch_size)
         self.upload_folder("match_player_details", batch_size=batch_size)
+        self.upload_folder("leagues", batch_size=batch_size)
 
 
-# %%
-sender = S3Sender(s3_client)
-sender.upload_all(100000)
-
-
-# %%

@@ -31,6 +31,16 @@ class Match(Base):
     flag_details_processed: Mapped[bool] = mapped_column(default=False)
 
 
+class League(Base):
+    __tablename__ = "league"
+
+    leagueid: Mapped[int] = mapped_column(primary_key=True, nullable=False)
+    ticket: Mapped[str] = mapped_column(nullable=True)
+    banner: Mapped[str] = mapped_column(nullable=True)
+    tier: Mapped[str] = mapped_column(nullable=True)
+    name: Mapped[str]
+
+
 def get_oldest_match_id(engine):
     with Session(engine) as session:
         stmt = select(func.min(Match.match_id))

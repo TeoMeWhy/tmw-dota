@@ -3,8 +3,11 @@
 *.csv
 *parquet
 *.db
+*.db-journal
 
 __pycache__
 
 .vscode
 mongodb
+
+todos.md

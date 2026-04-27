@@ -1,8 +1,8 @@
 # %%
-import sqlalchemy
+import datetime
+
 from sqlalchemy.orm import Session
 
-from pymongo import MongoClient
 import pandas as pd
 
 from tqdm import tqdm
@@ -10,22 +10,7 @@ from tqdm import tqdm
 import sys
 sys.path.insert(0, "../01_collect")
 
-import db_models
-
-pd.options.display.max_columns = None
-# %%
-
-db_path = "./../../data/database.db"
-con = sqlalchemy.create_engine(f"sqlite:///{db_path}")
-
-client = MongoClient("mongodb://root:example@localhost:27017/")
-
-# Obtendo o database do dota
-db =  client.get_database("dota2")
-
-# Obtendo a coleção do database do dota
-collection = db.get_collection("match_details")
-collection.create_index("match_id", unique=True)
+from db_models import db_models
 
 # %%
 
@@ -85,7 +70,7 @@ class MatchDetailsProcessor:
         
     def save_match_details(self, df_match):
         match_id = df_match["match_id"].iloc[0]
-        df_match.to_parquet(f"../../data/match_details/{match_id}.parquet", index=False)
+        df_match.to_parquet(f"../data/match_details/{match_id}.parquet", index=False)
 
     def extract_match_player_details(self, data):
         columns = [
@@ -189,11 +174,12 @@ class MatchDetailsProcessor:
         df_players = pd.DataFrame(data["players"])
         df = pd.concat([df_template, df_players])[columns]
         df['match_id'] = data['match_id']
+        df['rank_tier'] = df['rank_tier'].astype(str).astype(float)
         return df
 
     def save_match_player_details(self, df_players):
         match_id = df_players["match_id"].iloc[0]
-        df_players.to_parquet(f"../../data/match_player_details/{match_id}.parquet", index=False)
+        df_players.to_parquet(f"../data/match_player_details/{match_id}.parquet", index=False)
 
     def process_match_id(self, match_id):
         data = self.get_match_details(match_id)
@@ -227,8 +213,22 @@ class MatchDetailsProcessor:
                     session.add(m)
                     session.commit()
 
+
+class LeagueProcessor:
+
+    def __init__(self, engine):
+        self.engine = engine
+
+    def get_leagues(self):
+        df = pd.read_sql("SELECT * FROM league", self.engine)
+        return df
+    
+    def save_leagues(self, df):
+        now = datetime.datetime.now().strftime("%Y%m%d_%H%M%s")
+        df.to_parquet(f"../data/leagues/{now}.parquet", index=False)
+
+    def process(self):
+        df = self.get_leagues()
+        self.save_leagues(df)
+
 # %%
-
-processor = MatchDetailsProcessor(collection, con)
-processor.process_all()
-
